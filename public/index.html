@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>mrdapps — tools by mr.d</title>
+  <meta name="description" content="A handful of small tools built on a Mac mini in Richmond, BC.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0b10">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wordmark">
+      <span class="word">mrdapps</span>
+      <span class="subtitle">// tools by mr.d</span>
+    </div>
+    <div class="status-pill" data-status="loading" aria-live="polite">
+      <span class="dot" data-status="loading"></span>
+      <span class="label">checking&hellip;</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>A handful of tools I build for myself, hosted on a Mac mini in Richmond, BC.</h1>
+      <p class="stack">mac mini &middot; cloudflare tunnel &middot; open source on github</p>
+    </section>
+
+    <section class="apps-grid" aria-label="apps">
+      <article class="card" data-health="/healthz/transcript">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <header class="card-header">
+          <span class="status">
+            <span class="dot" data-status="loading"></span>
+            <span class="label">live</span>
+          </span>
+          <span class="latency"></span>
+        </header>
+        <h2 class="card-title">Transcript-Master</h2>
+        <p class="card-desc">YouTube, PDF, and audio &rarr; clean text. Uses Whisper locally.</p>
+        <p class="card-url">transcript.mrdapps.com</p>
+        <footer class="card-footer">
+          <a class="btn" href="https://transcript.mrdapps.com" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M9 2h5v5M14 2 7.5 8.5M12 9v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h4"/></svg>
+            <span>open app</span>
+          </a>
+          <a class="btn" href="https://github.com/leanddouglas/Transcript-Master" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.36c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.81.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.66.07-.52.28-.87.51-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.13 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.11.16 1.93.08 2.13.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.74.54 1.5v2.22c0 .21.15.46.55.38A8 8 0 0 0 8 0z"/></svg>
+            <span>source</span>
+          </a>
+        </footer>
+      </article>
+
+      <article class="card card--placeholder" aria-hidden="true">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <header class="card-header">
+          <span class="status">
+            <span class="dot" data-status="placeholder"></span>
+            <span class="label">coming soon</span>
+          </span>
+        </header>
+        <p class="slot">// slot available</p>
+      </article>
+
+      <article class="card card--placeholder" aria-hidden="true">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <header class="card-header">
+          <span class="status">
+            <span class="dot" data-status="placeholder"></span>
+            <span class="label">coming soon</span>
+          </span>
+        </header>
+        <p class="slot">// slot available</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>built on a mac mini &middot; <a href="https://github.com/leanddouglas" target="_blank" rel="noopener noreferrer">leanddouglas</a> &middot; <span id="year">2026</span></span>
+  </footer>
+</body>
+</html>
