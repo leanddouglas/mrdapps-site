@@ -42,9 +42,22 @@ def _find_public(start: str) -> str:
 
 PUBLIC = _find_public(HERE)
 
-# slug -> local /health URL on this Mac (loopback only).
-APPS: dict[str, str] = {
-    "transcript": "http://127.0.0.1:8765/health",
+# slug -> probe config. Two modes:
+#   json_health  -> upstream returns JSON with `ok: bool`; we forward it.
+#   status_ok    -> any 2xx/3xx counts as ok=true; upstream body is ignored.
+# A bare string is treated as json_health for backward compatibility.
+APPS: dict[str, object] = {
+    "transcript":     {"url": "http://127.0.0.1:8765/health",     "mode": "json_health"},
+    "geo":            {"url": "http://100.121.62.15:8766/health", "mode": "json_health"},
+    "books":          {"url": "http://127.0.0.1:8801/",           "mode": "status_ok"},
+    "tracker":        {"url": "http://127.0.0.1:8800/",           "mode": "status_ok"},
+    "ops":            {"url": "http://127.0.0.1:8802/",           "mode": "status_ok"},
+    "training":       {"url": "http://127.0.0.1:8804/",           "mode": "status_ok"},
+    "sorriso":        {"url": "http://127.0.0.1:8805/",           "mode": "status_ok"},
+    "sorriso-themes": {"url": "http://127.0.0.1:8806/",           "mode": "status_ok"},
+    "cars":           {"url": "http://127.0.0.1:8807/health",     "mode": "status_ok"},
+    "scrape":         {"url": "http://127.0.0.1:8808/api/stats",  "mode": "status_ok"},
+    "simmind":        {"url": "http://127.0.0.1:8809/docs",       "mode": "status_ok"},
 }
 
 PROXY_TIMEOUT_S = 2.5
@@ -62,10 +75,16 @@ class Handler(SimpleHTTPRequestHandler):
         super().do_GET()
 
     def _proxy_health(self, slug: str) -> None:
-        url = APPS.get(slug)
-        if not url:
+        entry = APPS.get(slug)
+        if not entry:
             self._send_json(404, {"ok": False, "error": "unknown app"})
             return
+
+        if isinstance(entry, str):
+            url, mode = entry, "json_health"
+        else:
+            url = entry["url"]
+            mode = entry.get("mode", "json_health")
 
         started = time.monotonic()
         try:
@@ -73,12 +92,24 @@ class Handler(SimpleHTTPRequestHandler):
             with urllib.request.urlopen(req, timeout=PROXY_TIMEOUT_S) as resp:
                 raw = resp.read()
                 upstream_status = resp.status
+        except urllib.error.HTTPError as e:
+            elapsed_ms = int((time.monotonic() - started) * 1000)
+            if mode == "status_ok" and 200 <= e.code < 400:
+                self._send_json(200, {"ok": True, "status": e.code, "latency_ms": elapsed_ms})
+            else:
+                self._send_json(200, {"ok": False, "status": e.code, "latency_ms": elapsed_ms})
+            return
         except (urllib.error.URLError, TimeoutError, OSError) as e:
             elapsed_ms = int((time.monotonic() - started) * 1000)
             self._send_json(502, {"ok": False, "error": str(e), "latency_ms": elapsed_ms})
             return
 
         elapsed_ms = int((time.monotonic() - started) * 1000)
+
+        if mode == "status_ok":
+            ok = 200 <= upstream_status < 400
+            self._send_json(200, {"ok": ok, "status": upstream_status, "latency_ms": elapsed_ms})
+            return
 
         try:
             data = json.loads(raw.decode("utf-8"))
