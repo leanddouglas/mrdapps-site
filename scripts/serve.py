@@ -53,6 +53,7 @@ APPS: dict[str, object] = {
     "tracker":        {"url": "http://127.0.0.1:8800/",           "mode": "status_ok"},
     "ops":            {"url": "http://127.0.0.1:8802/",           "mode": "status_ok"},
     "training":       {"url": "http://127.0.0.1:8804/",           "mode": "status_ok"},
+    "servusbotassistant": {"url": "http://127.0.0.1:8767/api/health", "mode": "json_health"},
     "sorriso":        {"url": "http://127.0.0.1:8805/",           "mode": "status_ok"},
     "sorriso-themes": {"url": "http://127.0.0.1:8806/",           "mode": "status_ok"},
     "cars":           {"url": "http://127.0.0.1:8807/health",     "mode": "status_ok"},
