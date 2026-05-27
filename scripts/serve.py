@@ -59,6 +59,8 @@ APPS: dict[str, object] = {
     "cars":           {"url": "http://127.0.0.1:8807/health",     "mode": "status_ok"},
     "scrape":         {"url": "http://127.0.0.1:8808/api/stats",  "mode": "status_ok"},
     "simmind":        {"url": "http://127.0.0.1:8809/docs",       "mode": "status_ok"},
+    # Life Counter is hosted same-origin under /life/, so probe ourselves.
+    "life":           {"url": "http://127.0.0.1:8090/life/",      "mode": "status_ok"},
 }
 
 PROXY_TIMEOUT_S = 2.5
