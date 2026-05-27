@@ -121,6 +121,43 @@ this site ever moves to a different machine), the recipe is in
 
 ---
 
+## Sub-app: `life.mrdapps.com` (Life Counter PWA)
+
+The Life Counter (`public/life/`) is a self-contained static PWA. It ships
+on its own loopback port (`8810`) under its own LaunchAgent, exactly like
+the other `*.mrdapps.com` apps.
+
+```bash
+bash scripts/install-life.sh
+```
+
+That script:
+
+1. Rsyncs `public/life/` and `life-serve.py` into
+   `~/Library/Application Support/life-mrdapps/`.
+2. Installs `com.servusgroup.life-mrdapps` into `~/Library/LaunchAgents/`.
+3. Loads it and smoke-tests `http://127.0.0.1:8810/`.
+
+Then, on the Mac, finish the Cloudflare wiring:
+
+```bash
+# 1. DNS — create the proxied CNAME automatically (or add it in the dashboard):
+cloudflared tunnel route dns <your-tunnel-name> life.mrdapps.com
+
+# 2. Ingress — edit ~/.cloudflared/config.yml and add (above the catch-all):
+#      - hostname: life.mrdapps.com
+#        service: http://127.0.0.1:8810
+# Then reload cloudflared:
+sudo launchctl kickstart -k system/com.cloudflare.cloudflared
+```
+
+The dashboard at `mrdapps.com` already has a Life card and a
+`/healthz/life` probe pointing at `127.0.0.1:8810`, so once the LaunchAgent
+is loaded the card will go green even before the Cloudflare ingress is
+live.
+
+---
+
 ## Adding a new app to the dashboard
 
 1. Get the app running on its own loopback port and its own

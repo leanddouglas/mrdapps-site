@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.servusgroup.life-mrdapps</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/dougmacminipro/Library/Application Support/life-mrdapps/life-serve.py</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/dougmacminipro/Library/Application Support/life-mrdapps</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>HOME</key>
+        <string>/Users/dougmacminipro</string>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/dougmacminipro/Library/Logs/life-mrdapps.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/dougmacminipro/Library/Logs/life-mrdapps.log</string>
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>
