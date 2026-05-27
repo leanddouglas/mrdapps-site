@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#15161b"/>
+  <!-- thin accent rule -->
+  <rect x="156" y="116" width="60" height="4" rx="2" fill="#e8a87c"/>
+  <!-- serif "L" composed of two rectangles so it stays crisp at every size -->
+  <g fill="#ece5d8">
+    <rect x="156" y="148" width="34" height="232" rx="2"/>
+    <rect x="156" y="346" width="200" height="34" rx="2"/>
+  </g>
+  <!-- soft accent dot — heartbeat -->
+  <circle cx="346" cy="170" r="20" fill="#e8a87c"/>
+</svg>
